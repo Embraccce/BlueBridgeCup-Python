@@ -1,7 +1,8 @@
 from collections import Counter
+import sys
 mod = 998244353
 n,m,k = map(int,input().split())
-d = Counter(map(int, input().split()))
+d = Counter(map(int, sys.stdin.readline().split()))
 for _ in range(m):
     X,Y = map(int,input().split())
     d = {key+X: val % mod for key, val in d.items() if key+X>0}
