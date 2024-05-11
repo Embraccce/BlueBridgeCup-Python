@@ -1,8 +1,8 @@
 import math
-n = int(input())
-mod = 998244353
-a = (n*(n-1)//2)%mod
-b = 1
-for num in range(3,n+1):
-    b = ((b%mod)*(num%mod))%mod
-print((a*b)%mod)
+lst=[]
+n=2
+for i in range(1,math.ceil(math.sqrt(n))):
+    if n % i == 0:
+        lst.append(i)
+        lst.append(n//i)
+print(lst)
