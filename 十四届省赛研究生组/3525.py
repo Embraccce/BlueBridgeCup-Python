@@ -1,25 +1,37 @@
-import math
-import sys
 n = int(input())
-arr = [0] + list(map(int,input().split()))
-prims = list()
-vis = [False for i in range(10**3+1)]
-for i in range(2, 10**3+1):
-    if not vis[i]:
-        prims.append(i)
-    j=0
-    while i*prims[j]<=10**3:
-        vis[i*prims[j]] = True
-        if i % prims[j] == 0:
-            break
-        j+=1
-
-
-for i in range(1,n+1):
+arr = [0] + list(map(int, input().split()))
+prims = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109,
+     113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239,
+     241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379,
+     383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521,
+     523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661,
+     673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827,
+     829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991,
+     997, 1009]
+ans = []
+mp=dict()
+for i in range(1, n + 1):
     if arr[i] in prims:
-        continue
+        if arr[i] in mp:
+            ans.append((mp[arr[i]],i))
+        else:
+            mp[arr[i]] = i
     else:
-        for j in range(i+1,n+1):
-            if math.gcd(arr[i], arr[j])!=1:
-                print(i, j)
-                sys.exit()
+        # 分解质因数
+        num = arr[i]
+        for prime in prims:
+            if prime > num: break
+            if num % prime != 0: continue
+            if prime in mp:
+                ans.append((mp[prime],i))
+            else:
+                mp[prime] = i
+            while num % prime == 0:
+                num //= prime
+        if num > 1:
+            if num in mp:
+                ans.append((mp[num],i))
+            else:
+                mp[num] = i
+ans.sort(key=lambda x:(x[0],x[1]))
+print(*ans[0])
