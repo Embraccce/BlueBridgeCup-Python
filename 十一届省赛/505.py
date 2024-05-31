@@ -5,6 +5,8 @@ for i in range(N):
     for j in range(i+1):
         arr[i][j] = temp[j]
 
+print(arr)
+
 dp = [[[0,0,0] for _ in range(N)] for _ in range(N)]
 dp[0][0][0] = arr[0][0]
 
